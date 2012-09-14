@@ -1,5 +1,5 @@
 // -*- mode: C++ -*-
-// Time-stamp: "2012-09-14 00:13:00 sb"
+// Time-stamp: "2012-09-14 14:14:36 sb"
 
 /*
   file       SerialLCD.hh
@@ -18,6 +18,7 @@ class SerialLCD {
   private:
     static const unsigned char command_code;
     static const unsigned char ext_command_code;
+    static const speed_t baud_rate;
 
     Tty tty;
   public:

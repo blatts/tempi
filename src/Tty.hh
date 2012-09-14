@@ -1,5 +1,5 @@
 // -*- mode: C++ -*-
-// Time-stamp: "2012-09-14 00:21:04 sb"
+// Time-stamp: "2012-09-14 14:17:37 sb"
 
 /*
   file       Tty.hh
@@ -12,6 +12,7 @@
 #define TTY_HH__A40DC7D7_D817_4DC9_B282_24AD5A319203
 
 #include <string>
+#include <termios.h>
 #include "Exception.hh"
 
 class Tty {
@@ -24,6 +25,8 @@ class Tty {
 
     void Write(unsigned char c);
     void Write(const std::string& s);
+    speed_t GetOutputBaudRate();
+    void SetOutputBaudRate(speed_t speed);
 };
 
 

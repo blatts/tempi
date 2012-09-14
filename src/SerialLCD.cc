@@ -1,5 +1,5 @@
 // -*- mode: C++ -*-
-// Time-stamp: "2012-09-14 00:13:44 sb"
+// Time-stamp: "2012-09-14 14:18:05 sb"
 
 /*
   file       SerialLCD.cc
@@ -11,11 +11,13 @@
 
 const unsigned char SerialLCD::command_code = 0x07;
 const unsigned char SerialLCD::ext_command_code = 0xfe;
-
+const speed_t SerialLCD::baud_rate = B9600;
 
 SerialLCD::SerialLCD(const std::string& device)
   : tty(device)
-{}
+{
+  tty.SetOutputBaudRate(baud_rate);
+}
 
 void SerialLCD::WriteCharacter(unsigned char c){
   tty.Write(c);
