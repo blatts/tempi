@@ -9,6 +9,5 @@ config.log
 config.status
 libtool
 src/.deps
-src/Makefile.in
 src/Makefile
 src/gpio_test
