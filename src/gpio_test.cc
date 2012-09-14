@@ -1,5 +1,5 @@
 // -*- mode: C++ -*-
-// Time-stamp: "2012-09-07 23:15:32 sb"
+// Time-stamp: "2012-09-14 00:18:07 sb"
 
 /*
   file       gpio_test.cc
@@ -10,12 +10,13 @@
 #define PROGRAM_NAME         "gpio_test"
 #define PROGRAM_DESCRIPTION  "Test GPIO pins on Raspberry Pi"
 #define PROGRAM_COPYRIGHT    "(C) Sebastian Blatt 2012"
-#define PROGRAM_VERSION      "20120907"
+#define PROGRAM_VERSION      "20120914"
 
 #include <iostream>
 
 #include "CommandLine.hh"
 #include "Gpio.hh"
+#include "SerialLCD.hh"
 
 static const char* program_options[] = {
   "Blarg", "blarg", "b", ""
@@ -34,6 +35,12 @@ int main(int argc, char** argv){
 
   try{
     GPIO& gpio = GPIO::Instance();
+
+    const std::string device = "/dev/ttyAMA0";
+    SerialLCD lcd(device);
+    lcd.Clear();
+    lcd.MoveCursor(0, 1);
+    lcd.WriteString("Hello world.");
   }
   catch(const Exception& e){
     std::cerr << e << std::endl;

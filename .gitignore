@@ -25,6 +25,4 @@ missing
 src/.deps
 src/Makefile.in
 src/Makefile
-src/wannier2d
-src/wannier3d
-src/flux_lattice
+src/gpio_test

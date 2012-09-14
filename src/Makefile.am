@@ -12,11 +12,15 @@ noinst_HEADERS = \
   StringVector.hh \
 	OutputManipulator.hh \
 	Validator.hh \
-	Gpio.hh
+	Gpio.hh \
+	Tty.hh \
+	SerialLCD.hh
 
 gpio_test_SOURCES = \
   CommandLine.cc \
   Representable.cc \
   StringVector.cc \
 	Gpio.cc \
+	Tty.cc \
+	SerialLCD.cc \
 	gpio_test.cc
