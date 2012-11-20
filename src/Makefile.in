@@ -33,7 +33,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = gpio_test$(EXEEXT)
+bin_PROGRAMS = tempi$(EXEEXT)
 subdir = src
 DIST_COMMON = $(noinst_HEADERS) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in
@@ -49,16 +49,16 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_gpio_test_OBJECTS = gpio_test-CommandLine.$(OBJEXT) \
-	gpio_test-Representable.$(OBJEXT) \
-	gpio_test-StringVector.$(OBJEXT) gpio_test-Gpio.$(OBJEXT) \
-	gpio_test-Tty.$(OBJEXT) gpio_test-SerialLCD.$(OBJEXT) \
-	gpio_test-gpio_test.$(OBJEXT)
-gpio_test_OBJECTS = $(am_gpio_test_OBJECTS)
-gpio_test_DEPENDENCIES =
-gpio_test_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(gpio_test_CXXFLAGS) \
-	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+am_tempi_OBJECTS = tempi-CommandLine.$(OBJEXT) \
+	tempi-Representable.$(OBJEXT) tempi-StringVector.$(OBJEXT) \
+	tempi-Gpio.$(OBJEXT) tempi-Tty.$(OBJEXT) \
+	tempi-SerialLCD.$(OBJEXT) tempi-IPUtilities.$(OBJEXT) \
+	tempi-tempi.$(OBJEXT)
+tempi_OBJECTS = $(am_tempi_OBJECTS)
+tempi_DEPENDENCIES =
+tempi_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+	--mode=link $(CXXLD) $(tempi_CXXFLAGS) $(CXXFLAGS) \
+	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -71,8 +71,8 @@ CXXLD = $(CXX)
 CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(gpio_test_SOURCES)
-DIST_SOURCES = $(gpio_test_SOURCES)
+SOURCES = $(tempi_SOURCES)
+DIST_SOURCES = $(tempi_SOURCES)
 HEADERS = $(noinst_HEADERS)
 ETAGS = etags
 CTAGS = ctags
@@ -194,8 +194,8 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 MAINTAINERCLEANFILES = Makefile.in
 EXTRA_DIST = 
-gpio_test_CXXFLAGS = #$(GSL_CFLAGS) $(HDF5_CFLAGS)
-gpio_test_LDADD = #$(GSL_LIBS) $(HDF5_LIBS) #@CURSES_LIB@
+tempi_CXXFLAGS = #$(GSL_CFLAGS) $(HDF5_CFLAGS)
+tempi_LDADD = #$(GSL_LIBS) $(HDF5_LIBS) #@CURSES_LIB@
 noinst_HEADERS = \
   CommandLine.hh \
   Exception.hh \
@@ -205,16 +205,18 @@ noinst_HEADERS = \
 	Validator.hh \
 	Gpio.hh \
 	Tty.hh \
-	SerialLCD.hh
+	SerialLCD.hh \
+	IPUtilities.hh
 
-gpio_test_SOURCES = \
+tempi_SOURCES = \
   CommandLine.cc \
   Representable.cc \
   StringVector.cc \
 	Gpio.cc \
 	Tty.cc \
 	SerialLCD.cc \
-	gpio_test.cc
+	IPUtilities.cc \
+	tempi.cc
 
 all: all-am
 
@@ -277,9 +279,9 @@ clean-binPROGRAMS:
 	  echo " rm -f $$p $$f"; \
 	  rm -f $$p $$f ; \
 	done
-gpio_test$(EXEEXT): $(gpio_test_OBJECTS) $(gpio_test_DEPENDENCIES) 
-	@rm -f gpio_test$(EXEEXT)
-	$(gpio_test_LINK) $(gpio_test_OBJECTS) $(gpio_test_LDADD) $(LIBS)
+tempi$(EXEEXT): $(tempi_OBJECTS) $(tempi_DEPENDENCIES) 
+	@rm -f tempi$(EXEEXT)
+	$(tempi_LINK) $(tempi_OBJECTS) $(tempi_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -287,13 +289,14 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gpio_test-CommandLine.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gpio_test-Gpio.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gpio_test-Representable.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gpio_test-SerialLCD.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gpio_test-StringVector.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gpio_test-Tty.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gpio_test-gpio_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-CommandLine.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-Gpio.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-IPUtilities.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-Representable.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-SerialLCD.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-StringVector.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-Tty.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-tempi.Po@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -316,103 +319,117 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
 
-gpio_test-CommandLine.o: CommandLine.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-CommandLine.o -MD -MP -MF $(DEPDIR)/gpio_test-CommandLine.Tpo -c -o gpio_test-CommandLine.o `test -f 'CommandLine.cc' || echo '$(srcdir)/'`CommandLine.cc
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-CommandLine.Tpo $(DEPDIR)/gpio_test-CommandLine.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='CommandLine.cc' object='gpio_test-CommandLine.o' libtool=no @AMDEPBACKSLASH@
+tempi-CommandLine.o: CommandLine.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-CommandLine.o -MD -MP -MF $(DEPDIR)/tempi-CommandLine.Tpo -c -o tempi-CommandLine.o `test -f 'CommandLine.cc' || echo '$(srcdir)/'`CommandLine.cc
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-CommandLine.Tpo $(DEPDIR)/tempi-CommandLine.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='CommandLine.cc' object='tempi-CommandLine.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-CommandLine.o `test -f 'CommandLine.cc' || echo '$(srcdir)/'`CommandLine.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-CommandLine.o `test -f 'CommandLine.cc' || echo '$(srcdir)/'`CommandLine.cc
 
-gpio_test-CommandLine.obj: CommandLine.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-CommandLine.obj -MD -MP -MF $(DEPDIR)/gpio_test-CommandLine.Tpo -c -o gpio_test-CommandLine.obj `if test -f 'CommandLine.cc'; then $(CYGPATH_W) 'CommandLine.cc'; else $(CYGPATH_W) '$(srcdir)/CommandLine.cc'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-CommandLine.Tpo $(DEPDIR)/gpio_test-CommandLine.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='CommandLine.cc' object='gpio_test-CommandLine.obj' libtool=no @AMDEPBACKSLASH@
+tempi-CommandLine.obj: CommandLine.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-CommandLine.obj -MD -MP -MF $(DEPDIR)/tempi-CommandLine.Tpo -c -o tempi-CommandLine.obj `if test -f 'CommandLine.cc'; then $(CYGPATH_W) 'CommandLine.cc'; else $(CYGPATH_W) '$(srcdir)/CommandLine.cc'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-CommandLine.Tpo $(DEPDIR)/tempi-CommandLine.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='CommandLine.cc' object='tempi-CommandLine.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-CommandLine.obj `if test -f 'CommandLine.cc'; then $(CYGPATH_W) 'CommandLine.cc'; else $(CYGPATH_W) '$(srcdir)/CommandLine.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-CommandLine.obj `if test -f 'CommandLine.cc'; then $(CYGPATH_W) 'CommandLine.cc'; else $(CYGPATH_W) '$(srcdir)/CommandLine.cc'; fi`
 
-gpio_test-Representable.o: Representable.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-Representable.o -MD -MP -MF $(DEPDIR)/gpio_test-Representable.Tpo -c -o gpio_test-Representable.o `test -f 'Representable.cc' || echo '$(srcdir)/'`Representable.cc
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-Representable.Tpo $(DEPDIR)/gpio_test-Representable.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Representable.cc' object='gpio_test-Representable.o' libtool=no @AMDEPBACKSLASH@
+tempi-Representable.o: Representable.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-Representable.o -MD -MP -MF $(DEPDIR)/tempi-Representable.Tpo -c -o tempi-Representable.o `test -f 'Representable.cc' || echo '$(srcdir)/'`Representable.cc
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-Representable.Tpo $(DEPDIR)/tempi-Representable.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Representable.cc' object='tempi-Representable.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-Representable.o `test -f 'Representable.cc' || echo '$(srcdir)/'`Representable.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-Representable.o `test -f 'Representable.cc' || echo '$(srcdir)/'`Representable.cc
 
-gpio_test-Representable.obj: Representable.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-Representable.obj -MD -MP -MF $(DEPDIR)/gpio_test-Representable.Tpo -c -o gpio_test-Representable.obj `if test -f 'Representable.cc'; then $(CYGPATH_W) 'Representable.cc'; else $(CYGPATH_W) '$(srcdir)/Representable.cc'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-Representable.Tpo $(DEPDIR)/gpio_test-Representable.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Representable.cc' object='gpio_test-Representable.obj' libtool=no @AMDEPBACKSLASH@
+tempi-Representable.obj: Representable.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-Representable.obj -MD -MP -MF $(DEPDIR)/tempi-Representable.Tpo -c -o tempi-Representable.obj `if test -f 'Representable.cc'; then $(CYGPATH_W) 'Representable.cc'; else $(CYGPATH_W) '$(srcdir)/Representable.cc'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-Representable.Tpo $(DEPDIR)/tempi-Representable.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Representable.cc' object='tempi-Representable.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-Representable.obj `if test -f 'Representable.cc'; then $(CYGPATH_W) 'Representable.cc'; else $(CYGPATH_W) '$(srcdir)/Representable.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-Representable.obj `if test -f 'Representable.cc'; then $(CYGPATH_W) 'Representable.cc'; else $(CYGPATH_W) '$(srcdir)/Representable.cc'; fi`
 
-gpio_test-StringVector.o: StringVector.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-StringVector.o -MD -MP -MF $(DEPDIR)/gpio_test-StringVector.Tpo -c -o gpio_test-StringVector.o `test -f 'StringVector.cc' || echo '$(srcdir)/'`StringVector.cc
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-StringVector.Tpo $(DEPDIR)/gpio_test-StringVector.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='StringVector.cc' object='gpio_test-StringVector.o' libtool=no @AMDEPBACKSLASH@
+tempi-StringVector.o: StringVector.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-StringVector.o -MD -MP -MF $(DEPDIR)/tempi-StringVector.Tpo -c -o tempi-StringVector.o `test -f 'StringVector.cc' || echo '$(srcdir)/'`StringVector.cc
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-StringVector.Tpo $(DEPDIR)/tempi-StringVector.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='StringVector.cc' object='tempi-StringVector.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-StringVector.o `test -f 'StringVector.cc' || echo '$(srcdir)/'`StringVector.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-StringVector.o `test -f 'StringVector.cc' || echo '$(srcdir)/'`StringVector.cc
 
-gpio_test-StringVector.obj: StringVector.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-StringVector.obj -MD -MP -MF $(DEPDIR)/gpio_test-StringVector.Tpo -c -o gpio_test-StringVector.obj `if test -f 'StringVector.cc'; then $(CYGPATH_W) 'StringVector.cc'; else $(CYGPATH_W) '$(srcdir)/StringVector.cc'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-StringVector.Tpo $(DEPDIR)/gpio_test-StringVector.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='StringVector.cc' object='gpio_test-StringVector.obj' libtool=no @AMDEPBACKSLASH@
+tempi-StringVector.obj: StringVector.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-StringVector.obj -MD -MP -MF $(DEPDIR)/tempi-StringVector.Tpo -c -o tempi-StringVector.obj `if test -f 'StringVector.cc'; then $(CYGPATH_W) 'StringVector.cc'; else $(CYGPATH_W) '$(srcdir)/StringVector.cc'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-StringVector.Tpo $(DEPDIR)/tempi-StringVector.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='StringVector.cc' object='tempi-StringVector.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-StringVector.obj `if test -f 'StringVector.cc'; then $(CYGPATH_W) 'StringVector.cc'; else $(CYGPATH_W) '$(srcdir)/StringVector.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-StringVector.obj `if test -f 'StringVector.cc'; then $(CYGPATH_W) 'StringVector.cc'; else $(CYGPATH_W) '$(srcdir)/StringVector.cc'; fi`
 
-gpio_test-Gpio.o: Gpio.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-Gpio.o -MD -MP -MF $(DEPDIR)/gpio_test-Gpio.Tpo -c -o gpio_test-Gpio.o `test -f 'Gpio.cc' || echo '$(srcdir)/'`Gpio.cc
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-Gpio.Tpo $(DEPDIR)/gpio_test-Gpio.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Gpio.cc' object='gpio_test-Gpio.o' libtool=no @AMDEPBACKSLASH@
+tempi-Gpio.o: Gpio.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-Gpio.o -MD -MP -MF $(DEPDIR)/tempi-Gpio.Tpo -c -o tempi-Gpio.o `test -f 'Gpio.cc' || echo '$(srcdir)/'`Gpio.cc
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-Gpio.Tpo $(DEPDIR)/tempi-Gpio.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Gpio.cc' object='tempi-Gpio.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-Gpio.o `test -f 'Gpio.cc' || echo '$(srcdir)/'`Gpio.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-Gpio.o `test -f 'Gpio.cc' || echo '$(srcdir)/'`Gpio.cc
 
-gpio_test-Gpio.obj: Gpio.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-Gpio.obj -MD -MP -MF $(DEPDIR)/gpio_test-Gpio.Tpo -c -o gpio_test-Gpio.obj `if test -f 'Gpio.cc'; then $(CYGPATH_W) 'Gpio.cc'; else $(CYGPATH_W) '$(srcdir)/Gpio.cc'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-Gpio.Tpo $(DEPDIR)/gpio_test-Gpio.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Gpio.cc' object='gpio_test-Gpio.obj' libtool=no @AMDEPBACKSLASH@
+tempi-Gpio.obj: Gpio.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-Gpio.obj -MD -MP -MF $(DEPDIR)/tempi-Gpio.Tpo -c -o tempi-Gpio.obj `if test -f 'Gpio.cc'; then $(CYGPATH_W) 'Gpio.cc'; else $(CYGPATH_W) '$(srcdir)/Gpio.cc'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-Gpio.Tpo $(DEPDIR)/tempi-Gpio.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Gpio.cc' object='tempi-Gpio.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-Gpio.obj `if test -f 'Gpio.cc'; then $(CYGPATH_W) 'Gpio.cc'; else $(CYGPATH_W) '$(srcdir)/Gpio.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-Gpio.obj `if test -f 'Gpio.cc'; then $(CYGPATH_W) 'Gpio.cc'; else $(CYGPATH_W) '$(srcdir)/Gpio.cc'; fi`
 
-gpio_test-Tty.o: Tty.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-Tty.o -MD -MP -MF $(DEPDIR)/gpio_test-Tty.Tpo -c -o gpio_test-Tty.o `test -f 'Tty.cc' || echo '$(srcdir)/'`Tty.cc
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-Tty.Tpo $(DEPDIR)/gpio_test-Tty.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Tty.cc' object='gpio_test-Tty.o' libtool=no @AMDEPBACKSLASH@
+tempi-Tty.o: Tty.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-Tty.o -MD -MP -MF $(DEPDIR)/tempi-Tty.Tpo -c -o tempi-Tty.o `test -f 'Tty.cc' || echo '$(srcdir)/'`Tty.cc
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-Tty.Tpo $(DEPDIR)/tempi-Tty.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Tty.cc' object='tempi-Tty.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-Tty.o `test -f 'Tty.cc' || echo '$(srcdir)/'`Tty.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-Tty.o `test -f 'Tty.cc' || echo '$(srcdir)/'`Tty.cc
 
-gpio_test-Tty.obj: Tty.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-Tty.obj -MD -MP -MF $(DEPDIR)/gpio_test-Tty.Tpo -c -o gpio_test-Tty.obj `if test -f 'Tty.cc'; then $(CYGPATH_W) 'Tty.cc'; else $(CYGPATH_W) '$(srcdir)/Tty.cc'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-Tty.Tpo $(DEPDIR)/gpio_test-Tty.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Tty.cc' object='gpio_test-Tty.obj' libtool=no @AMDEPBACKSLASH@
+tempi-Tty.obj: Tty.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-Tty.obj -MD -MP -MF $(DEPDIR)/tempi-Tty.Tpo -c -o tempi-Tty.obj `if test -f 'Tty.cc'; then $(CYGPATH_W) 'Tty.cc'; else $(CYGPATH_W) '$(srcdir)/Tty.cc'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-Tty.Tpo $(DEPDIR)/tempi-Tty.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Tty.cc' object='tempi-Tty.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-Tty.obj `if test -f 'Tty.cc'; then $(CYGPATH_W) 'Tty.cc'; else $(CYGPATH_W) '$(srcdir)/Tty.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-Tty.obj `if test -f 'Tty.cc'; then $(CYGPATH_W) 'Tty.cc'; else $(CYGPATH_W) '$(srcdir)/Tty.cc'; fi`
 
-gpio_test-SerialLCD.o: SerialLCD.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-SerialLCD.o -MD -MP -MF $(DEPDIR)/gpio_test-SerialLCD.Tpo -c -o gpio_test-SerialLCD.o `test -f 'SerialLCD.cc' || echo '$(srcdir)/'`SerialLCD.cc
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-SerialLCD.Tpo $(DEPDIR)/gpio_test-SerialLCD.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='SerialLCD.cc' object='gpio_test-SerialLCD.o' libtool=no @AMDEPBACKSLASH@
+tempi-SerialLCD.o: SerialLCD.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-SerialLCD.o -MD -MP -MF $(DEPDIR)/tempi-SerialLCD.Tpo -c -o tempi-SerialLCD.o `test -f 'SerialLCD.cc' || echo '$(srcdir)/'`SerialLCD.cc
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-SerialLCD.Tpo $(DEPDIR)/tempi-SerialLCD.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='SerialLCD.cc' object='tempi-SerialLCD.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-SerialLCD.o `test -f 'SerialLCD.cc' || echo '$(srcdir)/'`SerialLCD.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-SerialLCD.o `test -f 'SerialLCD.cc' || echo '$(srcdir)/'`SerialLCD.cc
 
-gpio_test-SerialLCD.obj: SerialLCD.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-SerialLCD.obj -MD -MP -MF $(DEPDIR)/gpio_test-SerialLCD.Tpo -c -o gpio_test-SerialLCD.obj `if test -f 'SerialLCD.cc'; then $(CYGPATH_W) 'SerialLCD.cc'; else $(CYGPATH_W) '$(srcdir)/SerialLCD.cc'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-SerialLCD.Tpo $(DEPDIR)/gpio_test-SerialLCD.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='SerialLCD.cc' object='gpio_test-SerialLCD.obj' libtool=no @AMDEPBACKSLASH@
+tempi-SerialLCD.obj: SerialLCD.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-SerialLCD.obj -MD -MP -MF $(DEPDIR)/tempi-SerialLCD.Tpo -c -o tempi-SerialLCD.obj `if test -f 'SerialLCD.cc'; then $(CYGPATH_W) 'SerialLCD.cc'; else $(CYGPATH_W) '$(srcdir)/SerialLCD.cc'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-SerialLCD.Tpo $(DEPDIR)/tempi-SerialLCD.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='SerialLCD.cc' object='tempi-SerialLCD.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-SerialLCD.obj `if test -f 'SerialLCD.cc'; then $(CYGPATH_W) 'SerialLCD.cc'; else $(CYGPATH_W) '$(srcdir)/SerialLCD.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-SerialLCD.obj `if test -f 'SerialLCD.cc'; then $(CYGPATH_W) 'SerialLCD.cc'; else $(CYGPATH_W) '$(srcdir)/SerialLCD.cc'; fi`
 
-gpio_test-gpio_test.o: gpio_test.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-gpio_test.o -MD -MP -MF $(DEPDIR)/gpio_test-gpio_test.Tpo -c -o gpio_test-gpio_test.o `test -f 'gpio_test.cc' || echo '$(srcdir)/'`gpio_test.cc
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-gpio_test.Tpo $(DEPDIR)/gpio_test-gpio_test.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gpio_test.cc' object='gpio_test-gpio_test.o' libtool=no @AMDEPBACKSLASH@
+tempi-IPUtilities.o: IPUtilities.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-IPUtilities.o -MD -MP -MF $(DEPDIR)/tempi-IPUtilities.Tpo -c -o tempi-IPUtilities.o `test -f 'IPUtilities.cc' || echo '$(srcdir)/'`IPUtilities.cc
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-IPUtilities.Tpo $(DEPDIR)/tempi-IPUtilities.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='IPUtilities.cc' object='tempi-IPUtilities.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-gpio_test.o `test -f 'gpio_test.cc' || echo '$(srcdir)/'`gpio_test.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-IPUtilities.o `test -f 'IPUtilities.cc' || echo '$(srcdir)/'`IPUtilities.cc
 
-gpio_test-gpio_test.obj: gpio_test.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -MT gpio_test-gpio_test.obj -MD -MP -MF $(DEPDIR)/gpio_test-gpio_test.Tpo -c -o gpio_test-gpio_test.obj `if test -f 'gpio_test.cc'; then $(CYGPATH_W) 'gpio_test.cc'; else $(CYGPATH_W) '$(srcdir)/gpio_test.cc'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/gpio_test-gpio_test.Tpo $(DEPDIR)/gpio_test-gpio_test.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='gpio_test.cc' object='gpio_test-gpio_test.obj' libtool=no @AMDEPBACKSLASH@
+tempi-IPUtilities.obj: IPUtilities.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-IPUtilities.obj -MD -MP -MF $(DEPDIR)/tempi-IPUtilities.Tpo -c -o tempi-IPUtilities.obj `if test -f 'IPUtilities.cc'; then $(CYGPATH_W) 'IPUtilities.cc'; else $(CYGPATH_W) '$(srcdir)/IPUtilities.cc'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-IPUtilities.Tpo $(DEPDIR)/tempi-IPUtilities.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='IPUtilities.cc' object='tempi-IPUtilities.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gpio_test_CXXFLAGS) $(CXXFLAGS) -c -o gpio_test-gpio_test.obj `if test -f 'gpio_test.cc'; then $(CYGPATH_W) 'gpio_test.cc'; else $(CYGPATH_W) '$(srcdir)/gpio_test.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-IPUtilities.obj `if test -f 'IPUtilities.cc'; then $(CYGPATH_W) 'IPUtilities.cc'; else $(CYGPATH_W) '$(srcdir)/IPUtilities.cc'; fi`
+
+tempi-tempi.o: tempi.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-tempi.o -MD -MP -MF $(DEPDIR)/tempi-tempi.Tpo -c -o tempi-tempi.o `test -f 'tempi.cc' || echo '$(srcdir)/'`tempi.cc
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-tempi.Tpo $(DEPDIR)/tempi-tempi.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='tempi.cc' object='tempi-tempi.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-tempi.o `test -f 'tempi.cc' || echo '$(srcdir)/'`tempi.cc
+
+tempi-tempi.obj: tempi.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-tempi.obj -MD -MP -MF $(DEPDIR)/tempi-tempi.Tpo -c -o tempi-tempi.obj `if test -f 'tempi.cc'; then $(CYGPATH_W) 'tempi.cc'; else $(CYGPATH_W) '$(srcdir)/tempi.cc'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-tempi.Tpo $(DEPDIR)/tempi-tempi.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='tempi.cc' object='tempi-tempi.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-tempi.obj `if test -f 'tempi.cc'; then $(CYGPATH_W) 'tempi.cc'; else $(CYGPATH_W) '$(srcdir)/tempi.cc'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

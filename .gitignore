@@ -10,4 +10,4 @@ config.status
 libtool
 src/.deps
 src/Makefile
-src/gpio_test
+src/tempi
