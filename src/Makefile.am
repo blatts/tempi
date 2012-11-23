@@ -15,6 +15,7 @@ noinst_HEADERS = \
 	Gpio.hh \
 	Tty.hh \
 	SerialLCD.hh \
+	Owfs.hh \
 	IPUtilities.hh
 
 tempi_SOURCES = \
@@ -25,4 +26,5 @@ tempi_SOURCES = \
 	Tty.cc \
 	SerialLCD.cc \
 	IPUtilities.cc \
+	Owfs.cc \
 	tempi.cc
