@@ -43,6 +43,7 @@ LogScreen::LogScreen(const std::string& lcd_device_)
 {
   try {
     p_lcd = new SerialLCD(lcd_device);
+     Clear();
   }
   catch(const Exception& e){
     std::cerr << "Could not initialize Serial LCD port at \""
@@ -111,6 +112,7 @@ int main(int argc, char** argv){
     uint32_t ip_address = GetLocalhostIPAddress(subnet, netmask);
     std::ostringstream os;
     os << "IP:" << StringFromIPAddress(ip_address);
+    std::cout << os.str() << std::endl;
 
     lcd.MoveCursor(0, 1);
     lcd.WriteString(os.str());
