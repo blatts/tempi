@@ -9,7 +9,9 @@
 
 #include "Owfs.hh"
 
+#include <iostream>
 #include <fstream>
+#include <cstdlib>
 
 DS18B20::DS18B20(const std::string& mount_point_,
                  const std::string& owfs_id_,
@@ -20,11 +22,12 @@ DS18B20::DS18B20(const std::string& mount_point_,
 {}
 
 double DS18B20::ReadTemperature(){
-  ifstream is(mount_point + "/" + owfs_id + "/temperature12");
-  std::string rc;
-  std::getline(is, rc);
-  return atof(is.c_str());
+  std::string path = mount_point + "/" + owfs_id + "/temperature12";
+  std::ifstream is(path.c_str());
+  char buf[128];
+  is.getline(buf, sizeof(buf)/sizeof(char));
   is.close();
+  return atof(buf);
 }
 
 Owfs::Owfs(const std::string& mount_point_)
@@ -42,7 +45,7 @@ Owfs::~Owfs(){
 
 void Owfs::RegisterTemperatureSensor(const std::string& owfs_id,
                                      const std::string& name){
-  DS18B20* p = new DS18B20(mount_point, owfs_id);
+  DS18B20* p = new DS18B20(mount_point, owfs_id, name);
   temperature_sensors.push_back(p);
 }
 

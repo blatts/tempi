@@ -471,14 +471,14 @@ tempi-IPUtilities.obj: IPUtilities.cc
 
 tempi-Owfs.o: Owfs.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-Owfs.o -MD -MP -MF $(DEPDIR)/tempi-Owfs.Tpo -c -o tempi-Owfs.o `test -f 'Owfs.cc' || echo '$(srcdir)/'`Owfs.cc
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-Owfs.Tpo $(DEPDIR)/tempi-Owfs.Po
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/tempi-Owfs.Tpo $(DEPDIR)/tempi-Owfs.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Owfs.cc' object='tempi-Owfs.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-Owfs.o `test -f 'Owfs.cc' || echo '$(srcdir)/'`Owfs.cc
 
 tempi-Owfs.obj: Owfs.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-Owfs.obj -MD -MP -MF $(DEPDIR)/tempi-Owfs.Tpo -c -o tempi-Owfs.obj `if test -f 'Owfs.cc'; then $(CYGPATH_W) 'Owfs.cc'; else $(CYGPATH_W) '$(srcdir)/Owfs.cc'; fi`
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-Owfs.Tpo $(DEPDIR)/tempi-Owfs.Po
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/tempi-Owfs.Tpo $(DEPDIR)/tempi-Owfs.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Owfs.cc' object='tempi-Owfs.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-Owfs.obj `if test -f 'Owfs.cc'; then $(CYGPATH_W) 'Owfs.cc'; else $(CYGPATH_W) '$(srcdir)/Owfs.cc'; fi`
