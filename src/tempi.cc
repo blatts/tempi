@@ -1,5 +1,5 @@
 // -*- mode: C++ -*-
-// Time-stamp: "2012-11-20 14:47:05 sb"
+// Time-stamp: "2012-11-23 16:25:51 sb"
 
 /*
   file       tempi.cc
@@ -19,10 +19,20 @@
 #include "Gpio.hh"
 #include "SerialLCD.hh"
 #include "IPUtilities.hh"
+#include "Owfs.hh"
 
 static const char* program_options[] = {
   "Serial LCD tty device", "device", "d", "/dev/ttyAMA0"
   };
+
+static const char* DS18B20_owfs_ids[] = {
+  "28.07A92B040000", "T1",
+  "28.23C22B040000", "T2",
+  "28.2CB32B040000", "T3",
+  "28.E23A2B040000", "T4",
+  "28.E4FE2A040000", "T5"
+  };
+
 
 class LogScreen {
   private:
@@ -97,8 +107,6 @@ int main(int argc, char** argv){
 
 
   try{
-    //GPIO& gpio = GPIO::Instance();
-
 
     const std::string device = cl.GetFlagData("-d");
     LogScreen lcd(device);
@@ -114,6 +122,20 @@ int main(int argc, char** argv){
 
     lcd.MoveCursor(0, 1);
     lcd.WriteString(os.str());
+
+    Owfs owfs("/mnt/onewire");
+    for(size_t i=0; i<sizeof(DS18B20_owfs_ids)/sizeof(char*)/2; ++i){
+      owfs.RegisterTemperatureSensor(DS18B20_owfs_ids[2*i], DS18B20_owfs_ids[2*i+1]);
+    }
+
+    std::map<std::string, double> ts;
+    owfs.ReadTemperatures(ts);
+    for(std::map<std::string, double>::const_iterator i=ts.begin();
+        i != ts.end(); ++i)
+    {
+      std::cout << i->first << " = " << i->second << " F" << std::endl;
+    }
+
 
     lcd.MoveCursor(0, 0);
     lcd.WriteString("tempi is done.");

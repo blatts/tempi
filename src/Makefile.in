@@ -53,7 +53,7 @@ am_tempi_OBJECTS = tempi-CommandLine.$(OBJEXT) \
 	tempi-Representable.$(OBJEXT) tempi-StringVector.$(OBJEXT) \
 	tempi-Gpio.$(OBJEXT) tempi-Tty.$(OBJEXT) \
 	tempi-SerialLCD.$(OBJEXT) tempi-IPUtilities.$(OBJEXT) \
-	tempi-tempi.$(OBJEXT)
+	tempi-Owfs.$(OBJEXT) tempi-tempi.$(OBJEXT)
 tempi_OBJECTS = $(am_tempi_OBJECTS)
 tempi_DEPENDENCIES =
 tempi_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -206,6 +206,7 @@ noinst_HEADERS = \
 	Gpio.hh \
 	Tty.hh \
 	SerialLCD.hh \
+	Owfs.hh \
 	IPUtilities.hh
 
 tempi_SOURCES = \
@@ -216,6 +217,7 @@ tempi_SOURCES = \
 	Tty.cc \
 	SerialLCD.cc \
 	IPUtilities.cc \
+	Owfs.cc \
 	tempi.cc
 
 all: all-am
@@ -292,6 +294,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-CommandLine.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-Gpio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-IPUtilities.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-Owfs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-Representable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-SerialLCD.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tempi-StringVector.Po@am__quote@
@@ -416,6 +419,20 @@ tempi-IPUtilities.obj: IPUtilities.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='IPUtilities.cc' object='tempi-IPUtilities.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-IPUtilities.obj `if test -f 'IPUtilities.cc'; then $(CYGPATH_W) 'IPUtilities.cc'; else $(CYGPATH_W) '$(srcdir)/IPUtilities.cc'; fi`
+
+tempi-Owfs.o: Owfs.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-Owfs.o -MD -MP -MF $(DEPDIR)/tempi-Owfs.Tpo -c -o tempi-Owfs.o `test -f 'Owfs.cc' || echo '$(srcdir)/'`Owfs.cc
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-Owfs.Tpo $(DEPDIR)/tempi-Owfs.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Owfs.cc' object='tempi-Owfs.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-Owfs.o `test -f 'Owfs.cc' || echo '$(srcdir)/'`Owfs.cc
+
+tempi-Owfs.obj: Owfs.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-Owfs.obj -MD -MP -MF $(DEPDIR)/tempi-Owfs.Tpo -c -o tempi-Owfs.obj `if test -f 'Owfs.cc'; then $(CYGPATH_W) 'Owfs.cc'; else $(CYGPATH_W) '$(srcdir)/Owfs.cc'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/tempi-Owfs.Tpo $(DEPDIR)/tempi-Owfs.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Owfs.cc' object='tempi-Owfs.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -c -o tempi-Owfs.obj `if test -f 'Owfs.cc'; then $(CYGPATH_W) 'Owfs.cc'; else $(CYGPATH_W) '$(srcdir)/Owfs.cc'; fi`
 
 tempi-tempi.o: tempi.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tempi_CXXFLAGS) $(CXXFLAGS) -MT tempi-tempi.o -MD -MP -MF $(DEPDIR)/tempi-tempi.Tpo -c -o tempi-tempi.o `test -f 'tempi.cc' || echo '$(srcdir)/'`tempi.cc
